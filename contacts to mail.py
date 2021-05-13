@@ -20,8 +20,8 @@ y te lo copia al portapapeles, cosa que vos directamente apretas control + v y y
 
 Fue creado por Nicolas Fernandez, CTA de IQVIA para toda la gente que este cansada de tener que entrar a CTMS a buscar el mail del
 PI para preguntarle algo. Esto te ahorrar valiosos minutos (o mas si CTMS esta lento).
-Queres consultar el codigo de este script? Aca tenes!
-https://github.com/Fernettriple/Contacts-to-email/blob/main/contacts%20to%20mail.py
+Queres consultar el codigo de este script? Aca tenes el link al repositorio!
+https://github.com/Fernettriple/Contacts-to-email
 
 Para que funcione correctamente, necesitas tener presente un archivo llamado "contactos.xlsx" que obtenes al bajar el reporte de CTMS
 para un determinado protocolo. Para generar correctamente este reporte, tenes que ir a CTMS > Protocols > Entras al protocolo que te 
