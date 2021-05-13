@@ -2,7 +2,6 @@ import pandas as pd
 import pyperclip
 import os
 
-
 roles = {
     1: "Principal Investigator",
     2: "Sub-Investigator",
@@ -70,14 +69,16 @@ while 1:
                         a_mandar = a_mandar.strip(",")
                     numero_roles = a_mandar.split(',')
                 elif "." in a_mandar:
-                    if "." in a_mandar:
-                        if a_mandar.endswith("."):
-                            a_mandar = a_mandar.strip(".") 
-                            numero_roles = a_mandar.split('.')
+                    if a_mandar.endswith("."):
+                        a_mandar = a_mandar.strip(".") 
+                        numero_roles = a_mandar.split('.')
                 else:
-                    raise Exception
+                    numero_roles = list(a_mandar)
                 lista_roles = [roles[int(x)] for x in numero_roles]
-                site_contact = contacts.loc[(contacts["Site"] == sitio) & (contacts["Role"].isin(lista_roles))]
+                if "3" in numero_roles:
+                    lista_roles.append("Study Coordinator (Back-up)")
+                    lista_roles.append("Study Coordinator, Primary")
+                site_contact = contacts.loc[(contacts["Site"] == sitio) & ((contacts["Role"].isin(lista_roles)))]
                 email_list = '; '.join(site_contact["E-Mail"].to_list())
                 break
             except:
@@ -87,4 +88,4 @@ while 1:
             exit()
 
     else:
-        print('No encontre el archivo "contactos.xlsx". Por favor revisa que esta presente en la carpeta donde esta este archivo.')
+        input('No encontre el archivo "contactos.xlsx". Por favor revisa que esta presente en la carpeta donde esta este archivo.\nPresione enter para continuar'
