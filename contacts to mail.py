@@ -10,6 +10,7 @@ roles = {
     4: "Ethics/Regulatory Contact",
     5: "IP/Device Shipping Contact"    
 }
+
 roles_lista = '\n'.join([f"{str(key)}: {values}" for key,values in roles.items()])
 
 mensaje_bienvenida = ('''
