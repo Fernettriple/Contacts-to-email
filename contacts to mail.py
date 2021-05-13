@@ -17,16 +17,20 @@ Bienvenid@!
 
 Este programita es MUY sencillo. Vos le decis que sitio necesitas copiar la direcion de mails y te lo busca en el reporte de CTMS 
 y te lo copia al portapapeles, cosa que vos directamente apretas control + v y ya podes pegarlo en un mail.
-Para que funcione correctamente, necesitas tener presente un archivo llamado "contactos.xlsx" que obtenes al bajar el reporte de CTMS
-para un determinado protocolo. 
 
-Para generar correctamente este reporte, tenes que ir a CTMS > Protocols > Entras al protocolo que te 
+Fue creado por Nicolas Fernandez, CTA de IQVIA para toda la gente que este cansada de tener que entrar a CTMS a buscar el mail del
+PI para preguntarle algo. Esto te ahorrar valiosos minutos (o mas si CTMS esta lento).
+Queres consultar el codigo de este script? Aca tenes!
+https://github.com/Fernettriple/Contacts-to-email/blob/main/contacts%20to%20mail.py
+
+Para que funcione correctamente, necesitas tener presente un archivo llamado "contactos.xlsx" que obtenes al bajar el reporte de CTMS
+para un determinado protocolo. Para generar correctamente este reporte, tenes que ir a CTMS > Protocols > Entras al protocolo que te 
 interesa, > Pestaña de Contacts > Icono de Engranaje(o ruedita, o gear) > Export > Y ahi seleccionas "All rows in current Query" y "Tab Delimited Text File".
 Ahora, PARA COLMO, cuando te baje el reporte tenes que entrar, y guardarlo con el nombre "contactos", en formato xlsx (Excel Workbook).
 Lo bueno es que una vez que lo tenes seteado, no tenes que hacer esto siempre (si no seria un bodrio) a menos que el reporte necesite una actualizacion
 
 Ahora, lo primero es checkear que lo hagas hecho bien! 
-Presiona cualquier tecla para continuar.
+Presiona enter tecla para continuar.
 ''')
 mensaje_sitio='''
 Decime el numero de sitio
@@ -50,13 +54,15 @@ while 1:
         contacts.rename(columns = {"Site #":"Site"}, inplace = True)
         contacts = contacts[["Country","Site","Role","Last Name", "First Name","Start Date", "End Date", "E-Mail" ]]
         contacts.dropna(subset = ["Site"],inplace=True)
-        contacts["Site"] = contacts["Site"].astype(int)
         contacts = contacts.loc[contacts["End Date"].isna()].sort_values(by = "Site")
+        contacts["Site"] = contacts["Site"].astype(int).astype(str)
         print(mensaje_sitio)
         while 1:
             sitio = input()
             try:
-                sitio = int(sitio)
+                sitio = sitio.strip(' ')
+                if sitio not in contacts["Site"].to_list():
+                    raise Exception 
                 break
             except:
                 print(f'Error: No se encontro el sitio escrito {sitio}. Puede ser que haya sido mal tipeado.')  
@@ -71,7 +77,7 @@ while 1:
                 elif "." in a_mandar:
                     if a_mandar.endswith("."):
                         a_mandar = a_mandar.strip(".") 
-                        numero_roles = a_mandar.split('.')
+                    numero_roles = a_mandar.split('.')
                 else:
                     numero_roles = list(a_mandar)
                 lista_roles = [roles[int(x)] for x in numero_roles]
