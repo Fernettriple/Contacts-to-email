@@ -88,4 +88,4 @@ while 1:
             exit()
 
     else:
-        input('No encontre el archivo "contactos.xlsx". Por favor revisa que esta presente en la carpeta donde esta este archivo.\nPresione enter para continuar'
+        input('No encontre el archivo "contactos.xlsx". Por favor revisa que esta presente en la carpeta donde esta este archivo.\nPresione enter para continuar')
